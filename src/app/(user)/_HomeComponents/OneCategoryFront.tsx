@@ -10,10 +10,12 @@ export default function OneCategoryFronts({
   catoName,
   categoryId,
 }: OneCategoryFrontType) {
-  const { foodsInfo, getFoodsInfo } = useFoodsInfo();
+
+  const { foodsInfo, getFoodsInfo, setFoodsInfo } = useFoodsInfo();
   useEffect(() => {
     getFoodsInfo();
   }, []);
+
   console.log(foodsInfo);
 
   return (

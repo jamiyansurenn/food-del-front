@@ -1,7 +1,7 @@
 export const Array = [
     {
       number: "1",
-      email: "bbtulga98@gmail.com",
+      email: "jjcage67@gmail.com",
       food: "2 food",
       date: "2024/12/20",
       total: "26.97",

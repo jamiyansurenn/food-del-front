@@ -8,7 +8,7 @@ export default function RootLayout({
   return (
     <div className="flex justify-center gap-[8%] px-[100px] items-center">
       {children}
-      <Image
+      <img
         alt="img"
         src={
           "https://res.cloudinary.com/dsvivujtj/image/upload/v1739850324/Frame_1321316047_iwsxvt.png"

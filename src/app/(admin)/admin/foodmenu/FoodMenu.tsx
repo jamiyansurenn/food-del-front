@@ -10,7 +10,7 @@ export default function FoodMenu() {
     getFoodsInfo();
   }, []);
   const getFoodsInfo = async () => {
-    const foodInfo = await fetch(`http://localhost:4000/foodsInfo`);
+    const foodInfo = await fetch(`http://localhost:8000/foodsInfo`);
     const jsonFoodInfo = await foodInfo.json();
     console.log(jsonFoodInfo);
     setFoodsInfo(jsonFoodInfo.foodsInfo);

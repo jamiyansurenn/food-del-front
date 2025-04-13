@@ -30,7 +30,7 @@ export default function DishesCategory() {
   }, []);
 
   const createCategory = async (value: string) => {
-    const data = await fetch("http://localhost:4000/categories", {
+    const data = await fetch("http://localhost:8000/categories", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -49,7 +49,7 @@ export default function DishesCategory() {
   };
 
   const deleteCategory = async (categoryId: string) => {
-    await fetch(`http://localhost:4000/categories/${categoryId}`, {
+    await fetch(`http://localhost:8000/categories/${categoryId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

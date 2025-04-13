@@ -52,7 +52,7 @@ export default function FoodsCard({
 
   const deleteFood = async (foodId: string) => {
     try {
-      await fetch(`http://localhost:4000/foodsInfo/${foodId}`, {
+      await fetch(`http://localhost:8000/foodsInfo/${foodId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

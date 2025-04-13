@@ -97,7 +97,7 @@ AppetizersProps) {
   const createFoodInfo = async (value: FoodType) => {
     const imageUrl = await uploadImage(file);
 
-    const data = await fetch("http://localhost:4000/foodsInfo", {
+    const data = await fetch("http://localhost:8000/foodsInfo", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -23,7 +23,7 @@ export const CategoriesProvider = ({ children }: { children: ReactNode }) => {
   const [categories, setCategories] = useState<FoodType[]>([]);
 
   const getCategories = async () => {
-    const data = await fetch("http://localhost:4000/categories");
+    const data = await fetch("http://localhost:8000/categories");
     const categories = await data.json();
     setCategories(categories.data);
     console.log(categories);

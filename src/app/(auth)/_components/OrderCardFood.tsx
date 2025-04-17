@@ -1,5 +1,8 @@
+// filepath: /Users/24LP6563/Documents/GitHub/food-del-front/src/app/index.ts
+export function sum(a: number, b: number): number {
+  return a + b;
+}// filepath: /Users/24LP6563/Documents/GitHub/food-del-front/src/app/__tests__/example.test.ts
 import Image from "next/image";
-
 export default function OrderCartFood() {
   return (
     <div>

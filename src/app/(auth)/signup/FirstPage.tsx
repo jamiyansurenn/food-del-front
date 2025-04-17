@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -14,6 +13,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import { BASE_URL } from "@/constants";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -32,8 +34,16 @@ export default function FirstPage({ currentStep, setCurrentStep }: PageProps) {
     },
   });
 
-  const onSubmit = () => {
-    setCurrentStep(currentStep + 1);
+  const onSubmit = async (values: { email: string }) => {
+    try {
+      const user = await axios.post(`${BASE_URL}/auth/signup`, values);
+      if (user) {
+        toast.success("User successfully registered");
+        setCurrentStep(currentStep + 1); // Move to the next step
+      }
+    } catch (error: any) {
+      toast.error(error.response?.data?.error || "An error occurred");
+    }
   };
 
   return (
@@ -65,7 +75,6 @@ export default function FirstPage({ currentStep, setCurrentStep }: PageProps) {
               </FormItem>
             )}
           />
-
           <Button
             type="submit"
             className="bg-blue-500 text-white rounded-md h-9 w-full flex justify-center items-center"
@@ -79,7 +88,10 @@ export default function FirstPage({ currentStep, setCurrentStep }: PageProps) {
         <p className="text-[16px] font-normal text-[#71717a]">
           Already have an account?
         </p>
-        <p className="text-[16px] text-[#2563EB] font-normal cursor-pointer">
+        <p
+          className="text-[16px] text-[#2563EB] font-normal cursor-pointer"
+          onClick={() => setCurrentStep(0)} // Example: Reset to the first step
+        >
           Log in
         </p>
       </div>

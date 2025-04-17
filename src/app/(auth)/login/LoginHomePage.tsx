@@ -15,6 +15,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+import { BASE_URL } from "@/constants";
+import { toast } from "sonner";
+import { jwtDecode } from "jwt-decode";
+import { useState } from "react"
+
 
 const formSchema = z.object({
   email: z.string().email("Invalid email"),
@@ -22,6 +28,8 @@ const formSchema = z.object({
 });
 
 export default function LoginHomePage() {
+  const router = useRouter(); // Move useRouter to the top level
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -31,13 +39,37 @@ export default function LoginHomePage() {
   });
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
-    const router = useRouter();
     try {
-      router.push("./home");
-    } catch (error) {
-      console.error("Error during signup:", error);
+      const user = await axios.post(`${BASE_URL}/auth/signin`, values);
+      console.log(values, "values");
+      if (user) {
+        toast("User successfully login.");
+      }
+
+      localStorage.setItem("token", user.data.token);
+
+      const decodedToken: any = jwtDecode(user.data.token);
+
+      console.log(decodedToken);
+
+      if (decodedToken.user.role == "ADMIN") {
+        router.push('/admin');
+        return;
+      } else {
+        router.push('/')
+      }
+
+    } catch (error: unknown) {
+      console.log(error, "error")
+      // setError((error as ErrorType).response.data.error);
+      // setError((error as ErrorType).message);
     }
-  };
+  }
+  // try {
+  //   router.push("./home"); // Use the router instance here
+  // } catch (error) {
+  //   console.error("Error during login:", error);
+  // }
   return (
     <div className="bg-white w-[416px]  p-6 flex flex-col gap-4 rounded-lg">
       <Link
@@ -103,4 +135,5 @@ export default function LoginHomePage() {
       </div>
     </div>
   );
-}
+
+};
